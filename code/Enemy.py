@@ -1,9 +1,12 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
-class EntityFactory:
+from code.Entity import Entity
+
+
+class Enemy(Entity):
     def __init__(self):
         pass
 
-    def get_entity(self, entity_type):
+    def move(self, ):
         pass
