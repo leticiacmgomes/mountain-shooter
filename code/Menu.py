@@ -1,6 +1,8 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 import pygame
+from pygame import Rect, Surface
+from pygame.font import Font
 
 from code.const import WIN_WIDTH, COLOR_ORANGE, COLOR_WHITE, MENU_OPTION, COLOR_YELLOW
 
@@ -8,7 +10,9 @@ from code.const import WIN_WIDTH, COLOR_ORANGE, COLOR_WHITE, MENU_OPTION, COLOR_
 class Menu:
     def __init__(self, window):
         self.window = window
-        self.surf = pygame.image.load('./assets/MenuBg.png')
+        self.surf = pygame.image.load('./assets/MenuBg.png').convert_alpha(
+
+        )
         self.rect = self.surf.get_rect(left=0, top=0)
 
     def run(self, ):
