@@ -13,7 +13,7 @@ from code.Entity import Entity
 from code.EntityFactory import EntityFactory
 from code.EntityMediator import EntityMediator
 from code.Player import Player
-from code.const import WIN_HEIGHT, COLOR_WHITE, MENU_OPTION, EVENT_ENEMY, SPAWN_TIME
+from code.const import WIN_HEIGHT, C_WHITE, MENU_OPTION, EVENT_ENEMY, SPAWN_TIME, C_GREEN, C_CYAN
 
 
 class Level:
@@ -31,7 +31,6 @@ class Level:
 
         pygame.time.set_timer(EVENT_ENEMY, SPAWN_TIME)
 
-
     def run(self, ):
         pygame.mixer_music.load(f'./assets/{self.name}.mp3')
         pygame.mixer_music.play(-1)
@@ -45,6 +44,12 @@ class Level:
                     shot = ent.shoot()
                     if shot is not None:
                         self.entity_list.append(shot)
+
+                if ent.name == 'Player1':
+                    self.level_text(14, f'Player1 - HEALTH: {ent.health} | Score: {ent.score}', C_GREEN, (130, 25))
+                if ent.name == 'Player2':
+                    self.level_text(14, f'Player2 - HEALTH: {ent.health} | Score: {ent.score}', C_CYAN, (130, 45))
+
             pygame.display.flip()
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
@@ -55,9 +60,9 @@ class Level:
                     choice = random.choice(('Enemy1', 'Enemy2'))
                     self.entity_list.append(EntityFactory.get_entity(choice))
 
-            self.level_text(14, f'{self.name} - Timeout: {self.timeout / 1000 :.1f}s', COLOR_WHITE, (10, 5))
-            self.level_text(14, f'fps: {clock.get_fps()} _ :.1f', COLOR_WHITE, (10, WIN_HEIGHT - 35))
-            self.level_text(14, f'entidades: {len(self.entity_list)}', COLOR_WHITE, (10, WIN_HEIGHT - 20))
+            self.level_text(14, f'{self.name} - Timeout: {self.timeout / 1000 :.1f}s', C_WHITE, (20, 5))
+            self.level_text(14, f'fps: {clock.get_fps()} _ :.1f', C_WHITE, (120, WIN_HEIGHT - 35))
+            self.level_text(14, f'entidades: {len(self.entity_list)}', C_WHITE, (60, WIN_HEIGHT - 20))
             pygame.display.flip()
 
             EntityMediator.verify_collision(entity_list=self.entity_list)
